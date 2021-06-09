@@ -27,7 +27,7 @@ defmodule ExVCR.Mixfile do
     [
       {:meck, "~> 0.8"},
       {:exactor, "~> 2.2"},
-      {:exjsx, "~> 4.0"},
+      {:exjsx, git: "https://github.com/FortAwesome/exjsx.git", branch: "update-jsx"},
       {:ibrowse, "4.4.0", optional: true},
       {:httpotion, "~> 3.1", optional: true},
       {:httpoison, "~> 1.0", optional: true},
