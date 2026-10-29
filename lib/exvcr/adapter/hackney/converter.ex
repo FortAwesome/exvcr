@@ -100,14 +100,15 @@ defmodule ExVCR.Adapter.Hackney.Converter do
     }
   end
 
+  # hackney's form encoding is `hackney_url:qs/1`, which exists in every major
+  # version; `hackney_request:encode_form/1` was removed in hackney 3.
   def parse_request_body({:form, body}) do
-    hackney_request_module().encode_form(body)
-    |> elem(2)
+    hackney_url_module().qs(body)
     |> to_string()
     |> ExVCR.Filter.filter_sensitive_data()
   end
 
   def parse_request_body(body), do: super(body)
 
-  defp hackney_request_module(), do: :hackney_request
+  defp hackney_url_module(), do: :hackney_url
 end

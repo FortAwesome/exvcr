@@ -96,7 +96,7 @@ defmodule ExVCR.Adapter.Hackney do
   def hook_response_from_cache(_request, %ExVCR.Response{body: nil} = response), do: response
 
   def hook_response_from_cache([_, _, _, _, opts], %ExVCR.Response{body: body} = response) do
-    if :with_body in opts || {:with_body, true} in opts do
+    if body_returned_directly?(opts) do
       response
     else
       client = make_ref()
@@ -104,6 +104,17 @@ defmodule ExVCR.Adapter.Hackney do
       Store.set(client_key_atom, body)
       %{response | body: client}
     end
+  end
+
+  # hackney 3.0 always returns the body in the response tuple and ignores `with_body`.
+  defp body_returned_directly?(opts) do
+    hackney_major_version() >= 3 || :with_body in opts || {:with_body, true} in opts
+  end
+
+  defp hackney_major_version do
+    Application.load(:hackney)
+    {major, _} = :hackney |> Application.spec(:vsn) |> to_string() |> Integer.parse()
+    major
   end
 
   defp handle_body_request(args) do

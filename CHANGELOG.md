@@ -1,3 +1,16 @@
+0.17.2-fa.1
+------
+FortAwesome fork of 0.17.1, published to the internal-tools Hex repo.
+
+#### Changes
+* Allow `httpoison ~> 3.0`, which requires hackney 4.
+* Hackney adapter: on hackney 3.0+, replay returns the cached body in the
+  response tuple, as hackney itself does, instead of a reference for
+  `:hackney.body/1`. HTTPoison 3 only accepts a binary body.
+* Hackney adapter: encode `{:form, ...}` request bodies with
+  `:hackney_url.qs/1`, which exists in hackney 1 and 4, instead of
+  `:hackney_request.encode_form/1`, which hackney 3 removed.
+
 0.17.1
 ------
 #### Changes

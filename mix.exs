@@ -2,7 +2,7 @@ defmodule ExVCR.Mixfile do
   use Mix.Project
 
   @source_url "https://github.com/parroty/exvcr"
-  @version "0.17.1"
+  @version "0.17.2-fa.1"
 
   def project do
     [
@@ -52,7 +52,7 @@ defmodule ExVCR.Mixfile do
       {:meck, "~> 1.0"},
       {:exjsx, "~> 4.0"},
       {:ibrowse, "~> 4.4", optional: true},
-      {:httpoison, "~> 1.0 or ~> 2.0", optional: true},
+      {:httpoison, "~> 1.0 or ~> 2.0 or ~> 3.0", optional: true},
       {:finch, "~> 0.16", optional: true},
       {:excoveralls, "~> 0.18", only: :test},
       {:http_server, github: "parroty/http_server", only: [:dev, :test]},
