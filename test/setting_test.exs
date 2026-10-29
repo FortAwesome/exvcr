@@ -40,8 +40,10 @@ defmodule ExVCR.SettingTest do
   end
 
   test "append ignore_urls when there are existing values" do
-    ExVCR.Setting.set(:ignore_urls, [~r/example.com/])
-    ExVCR.Setting.append(:ignore_urls, ~r/example2.com/)
-    assert ExVCR.Setting.get(:ignore_urls) == [~r/example2.com/, ~r/example.com/]
+    r1 = ~r/example.com/
+    r2 = ~r/example2.com/
+    ExVCR.Setting.set(:ignore_urls, [r1])
+    ExVCR.Setting.append(:ignore_urls, r2)
+    assert ExVCR.Setting.get(:ignore_urls) == [r2, r1]
   end
 end
